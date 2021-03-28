@@ -11,9 +11,11 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>com.springboot</groupId>
     <artifactId>javabrains-springboot-quickstart</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>javabrains-springboot-quickstart</name>
+    <description>Simple api with springboot configured manually</description>
 
     <properties>
         <java.version>11</java.version>
