@@ -4,14 +4,14 @@ import com.api.application.entities.dto.TopicDTO;
 import com.api.application.entities.model.TopicModel;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class TopicService {
 
-    private List<TopicDTO> topics = new LinkedList<>(
+    private List<TopicDTO> topics = new ArrayList<>(
             Arrays.asList(
                     new TopicDTO("spring", "Spring Framework", "Learn Spring Faster!"),
                     new TopicDTO("adonis", "Adonis Framework", "Learn Adonis Faster!"),
