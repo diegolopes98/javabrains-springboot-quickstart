@@ -1,19 +1,9 @@
 package com.api.application.entities.model;
 
-public class TopicModel {
-
-    private String id;
-    private String name;
-    private String description;
-
-    public TopicModel() {
-    }
-
-    public TopicModel(String id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+public abstract class TopicModel {
+    protected String id;
+    protected String name;
+    protected String description;
 
     public String getId() {
         return id;
