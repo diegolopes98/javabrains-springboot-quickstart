@@ -29,7 +29,17 @@ public class TopicService {
 
     public TopicDTO addTopic(TopicModel topicData) {
         TopicDTO topicDTO = new TopicDTO(topicData.getId(), topicData.getName(), topicData.getDescription());
-        topics.add(topicDTO);
+
+        TopicDTO listTopicDTO = topics
+                .stream()
+                .filter(topic -> topic.getId().equals(topicDTO.getId()))
+                .findFirst()
+                .orElse(null);
+
+        if (listTopicDTO == null) {
+            topics.add(topicDTO);
+        }
+
         return topicDTO;
     }
 }
