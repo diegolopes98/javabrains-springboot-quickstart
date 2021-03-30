@@ -2,6 +2,7 @@ package com.api.application.controllers;
 
 import com.api.application.entities.requests.PostTopicRequest;
 import com.api.application.entities.responses.GetTopicResponse;
+import com.api.application.entities.responses.PostTopicResponse;
 import com.api.application.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +28,10 @@ public class TopicController {
     @GetMapping("/{id}")
     public GetTopicResponse getTopic(@PathVariable String id) {
         return new GetTopicResponse(topicService.getTopic(id));
+    }
+
+    @PostMapping()
+    public PostTopicResponse addTopic(@RequestBody PostTopicRequest body) {
+        return new PostTopicResponse(topicService.addTopic(body));
     }
 }
