@@ -1,8 +1,9 @@
 package com.api.application.controllers;
 
 import com.api.application.entities.requests.PostTopicRequest;
-import com.api.application.entities.responses.GetTopicResponse;
-import com.api.application.entities.responses.PostTopicResponse;
+import com.api.application.entities.responses.topic.GetTopicResponse;
+import com.api.application.entities.responses.topic.PostTopicResponse;
+import com.api.application.entities.responses.error.InternalErrorResponse;
 import com.api.application.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,8 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(allTopics);
         } catch (Exception e) {
-            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return ResponseEntity
-                    .status(status)
-                    .body("Internal Error");
+            InternalErrorResponse error = new InternalErrorResponse();
+            return error.toResponse();
         }
     }
 
@@ -47,10 +46,8 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(topic);
         } catch (Exception e) {
-            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return ResponseEntity
-                    .status(status)
-                    .body("Internal Error");
+            InternalErrorResponse error = new InternalErrorResponse();
+            return error.toResponse();
         }
     }
 
@@ -63,10 +60,8 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(createdTopic);
         } catch (Exception e) {
-            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return ResponseEntity
-                    .status(status)
-                    .body("Internal Error");
+            InternalErrorResponse error = new InternalErrorResponse();
+            return error.toResponse();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.api.application.entities.responses;
+package com.api.application.entities.responses.topic;
 
 import com.api.application.entities.model.TopicModel;
 
