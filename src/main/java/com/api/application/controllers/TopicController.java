@@ -21,31 +21,52 @@ public class TopicController {
 
     @GetMapping()
     public ResponseEntity getAllTopics() {
-        List<GetTopicResponse> allTopics = topicService
-                .getAllTopics()
-                .stream()
-                .map(topicDTO -> new GetTopicResponse(topicDTO)).collect(Collectors.toList());
+        try {
+            List<GetTopicResponse> allTopics = topicService
+                    .getAllTopics()
+                    .stream()
+                    .map(topicDTO -> new GetTopicResponse(topicDTO)).collect(Collectors.toList());
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(allTopics);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(allTopics);
+        } catch (Exception e) {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return ResponseEntity
+                    .status(status)
+                    .body("Internal Error");
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getTopic(@PathVariable String id) {
-        GetTopicResponse topic = new GetTopicResponse(topicService.getTopic(id));
+        try {
+            GetTopicResponse topic = new GetTopicResponse(topicService.getTopic(id));
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(topic);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(topic);
+        } catch (Exception e) {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return ResponseEntity
+                    .status(status)
+                    .body("Internal Error");
+        }
     }
 
     @PostMapping()
     public ResponseEntity addTopic(@RequestBody PostTopicRequest body) {
-        PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
+        try {
+            PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(createdTopic);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(createdTopic);
+        } catch (Exception e) {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return ResponseEntity
+                    .status(status)
+                    .body("Internal Error");
+        }
     }
 }
