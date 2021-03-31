@@ -5,6 +5,8 @@ import com.api.application.entities.responses.GetTopicResponse;
 import com.api.application.entities.responses.PostTopicResponse;
 import com.api.application.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,20 +20,32 @@ public class TopicController {
     private TopicService topicService;
 
     @GetMapping()
-    public List<GetTopicResponse> getAllTopics() {
-        return topicService
+    public ResponseEntity getAllTopics() {
+        List<GetTopicResponse> allTopics = topicService
                 .getAllTopics()
                 .stream()
                 .map(topicDTO -> new GetTopicResponse(topicDTO)).collect(Collectors.toList());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(allTopics);
     }
 
     @GetMapping("/{id}")
-    public GetTopicResponse getTopic(@PathVariable String id) {
-        return new GetTopicResponse(topicService.getTopic(id));
+    public ResponseEntity getTopic(@PathVariable String id) {
+        GetTopicResponse topic = new GetTopicResponse(topicService.getTopic(id));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(topic);
     }
 
     @PostMapping()
-    public PostTopicResponse addTopic(@RequestBody PostTopicRequest body) {
-        return new PostTopicResponse(topicService.addTopic(body));
+    public ResponseEntity addTopic(@RequestBody PostTopicRequest body) {
+        PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(createdTopic);
     }
 }
