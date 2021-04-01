@@ -32,8 +32,9 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(allTopics);
         } catch (Exception e) {
-            InternalErrorResponse error = new InternalErrorResponse();
-            return error.toResponse();
+            return new InternalErrorResponse.Builder()
+                    .build()
+                    .toResponse();
         }
     }
 
@@ -46,8 +47,9 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(topic);
         } catch (Exception e) {
-            InternalErrorResponse error = new InternalErrorResponse();
-            return error.toResponse();
+            return new InternalErrorResponse.Builder()
+                    .build()
+                    .toResponse();
         }
     }
 
@@ -60,8 +62,9 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(createdTopic);
         } catch (Exception e) {
-            InternalErrorResponse error = new InternalErrorResponse();
-            return error.toResponse();
+            return new InternalErrorResponse.Builder()
+                    .build()
+                    .toResponse();
         }
     }
 }

@@ -7,16 +7,46 @@ abstract public class ErrorResponse implements ResponseInterface {
     protected Integer status;
     protected String message;
 
+    protected static abstract class Builder<T extends ErrorResponse, B extends Builder<T, B>> {
+        protected T thisObject;
+        protected B thisBuilder;
+
+        protected abstract void setThisObject();
+        protected abstract B getThisBuilder();
+
+        public Builder() {
+            setThisObject();
+            thisBuilder = getThisBuilder();
+        }
+
+        public B setMessage(String message) {
+            thisObject.setMessage(message);
+            return thisBuilder.getThisBuilder();
+        }
+
+        public T build() {
+            return thisObject;
+        }
+    }
+
+    protected ErrorResponse() {}
+
     public Integer getStatus() {
         return status;
+    }
+
+    protected ErrorResponse setStatus(Integer status) {
+        this.status = status;
+        return this;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public ErrorResponse setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     @Override

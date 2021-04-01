@@ -3,14 +3,21 @@ package com.api.application.entities.responses.error;
 import org.springframework.http.HttpStatus;
 
 public class InternalErrorResponse extends ErrorResponse {
+    public static class Builder extends ErrorResponse.Builder<InternalErrorResponse, InternalErrorResponse.Builder> {
+        @Override
+        protected void setThisObject() {
+            InternalErrorResponse internalErrorResponse = new InternalErrorResponse();
+            internalErrorResponse
+                    .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .setMessage("Internal Server Error!");
+            thisObject = internalErrorResponse;
+        }
 
-    public InternalErrorResponse() {
-        this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        this.message = "Internal Server Error! Please contact an Administrator.";
+        @Override
+        protected Builder getThisBuilder() {
+            return this;
+        }
     }
 
-    public InternalErrorResponse(String message) {
-        this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        this.message = message;
-    }
+    private InternalErrorResponse() {}
 }
