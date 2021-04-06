@@ -2,10 +2,12 @@ package com.api.application.controllers;
 
 import com.api.application.entities.requests.PostTopicRequest;
 import com.api.application.entities.responses.error.ConflictErrorResponse;
+import com.api.application.entities.responses.error.NotFoundErrorResponse;
 import com.api.application.entities.responses.topic.GetTopicResponse;
 import com.api.application.entities.responses.topic.PostTopicResponse;
 import com.api.application.entities.responses.error.InternalErrorResponse;
 import com.api.application.exceptions.AlreadyExistsException;
+import com.api.application.exceptions.NotFoundException;
 import com.api.application.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +50,10 @@ public class TopicController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(topic);
+        } catch (NotFoundException e) {
+            return new NotFoundErrorResponse.Builder()
+                    .build()
+                    .toResponse();
         } catch (Exception e) {
             return new InternalErrorResponse.Builder()
                     .build()

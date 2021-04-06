@@ -3,6 +3,7 @@ package com.api.application.services;
 import com.api.application.entities.dto.TopicDTO;
 import com.api.application.entities.model.TopicModel;
 import com.api.application.exceptions.AlreadyExistsException;
+import com.api.application.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +25,14 @@ public class TopicService {
         return topics;
     }
 
-    public TopicDTO getTopic(String id) {
-        return topics.stream().filter(topic -> topic.getId().equals(id)).findFirst().orElse(null);
+    public TopicDTO getTopic(String id) throws NotFoundException {
+        TopicDTO topicDTO = topics.stream().filter(topic -> topic.getId().equals(id)).findFirst().orElse(null);
+
+        if (topicDTO == null) {
+            throw new NotFoundException();
+        }
+
+        return topicDTO;
     }
 
     public TopicDTO addTopic(TopicModel topicData) throws AlreadyExistsException {
