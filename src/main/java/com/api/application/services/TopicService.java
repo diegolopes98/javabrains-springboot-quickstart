@@ -2,6 +2,7 @@ package com.api.application.services;
 
 import com.api.application.entities.dto.TopicDTO;
 import com.api.application.entities.model.TopicModel;
+import com.api.application.exceptions.AlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class TopicService {
         return topics.stream().filter(topic -> topic.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public TopicDTO addTopic(TopicModel topicData) {
+    public TopicDTO addTopic(TopicModel topicData) throws AlreadyExistsException {
         TopicDTO topicDTO = new TopicDTO(topicData.getId(), topicData.getName(), topicData.getDescription());
 
         TopicDTO listTopicDTO = topics
@@ -36,9 +37,12 @@ public class TopicService {
                 .findFirst()
                 .orElse(null);
 
-        if (listTopicDTO == null) {
-            topics.add(topicDTO);
+        if (listTopicDTO != null) {
+            String message = String.format("id [%s] already exists", topicData.getId());
+            throw new AlreadyExistsException(message);
         }
+
+        topics.add(topicDTO);
 
         return topicDTO;
     }

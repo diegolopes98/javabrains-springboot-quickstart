@@ -1,9 +1,11 @@
 package com.api.application.controllers;
 
 import com.api.application.entities.requests.PostTopicRequest;
+import com.api.application.entities.responses.error.ConflictErrorResponse;
 import com.api.application.entities.responses.topic.GetTopicResponse;
 import com.api.application.entities.responses.topic.PostTopicResponse;
 import com.api.application.entities.responses.error.InternalErrorResponse;
+import com.api.application.exceptions.AlreadyExistsException;
 import com.api.application.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +63,11 @@ public class TopicController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(createdTopic);
+        } catch (AlreadyExistsException e) {
+            return new ConflictErrorResponse.Builder()
+                    .setMessage(e.getMessage())
+                    .build()
+                    .toResponse();
         } catch (Exception e) {
             return new InternalErrorResponse.Builder()
                     .build()
