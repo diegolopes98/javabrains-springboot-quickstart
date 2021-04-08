@@ -9,18 +9,20 @@ public class NotFoundErrorResponse extends ErrorResponse {
     }
 
     public static class Builder extends ErrorResponse.Builder<NotFoundErrorResponse, NotFoundErrorResponse.Builder> {
-        private Integer status = HttpStatus.NOT_FOUND.value();
-        private String message = "Not found with given information!";
-
         public NotFoundErrorResponse build() {
             return new NotFoundErrorResponse(
-                    status,
-                    message
+                    this.getStatus(),
+                    this.getMessage()
+
             );
         }
     }
 
     public static Builder builder() {
-        return new NotFoundErrorResponse.Builder();
+        Builder builder = new NotFoundErrorResponse.Builder();
+        builder
+            .setMessage("Not Found with given information!")
+            .setStatus(HttpStatus.NOT_FOUND.value());
+        return builder;
     }
 }

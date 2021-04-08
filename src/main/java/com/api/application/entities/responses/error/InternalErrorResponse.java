@@ -9,18 +9,19 @@ public class InternalErrorResponse extends ErrorResponse {
     }
 
     public static class Builder extends ErrorResponse.Builder<InternalErrorResponse, InternalErrorResponse.Builder> {
-        private Integer status = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        private String message = "Internal server error!";
-
         public InternalErrorResponse build() {
             return new InternalErrorResponse(
-                    status,
-                    message
+                    this.getStatus(),
+                    this.getMessage()
             );
         }
     }
 
     public static Builder builder() {
-        return new InternalErrorResponse.Builder();
+        Builder builder = new InternalErrorResponse.Builder();
+        builder
+            .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .setMessage("Internal Server Error!");
+        return builder;
     }
 }

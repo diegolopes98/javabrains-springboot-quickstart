@@ -8,7 +8,28 @@ abstract public class ErrorResponse implements ResponseInterface {
     private String message;
 
     public static abstract class Builder <T extends ErrorResponse, B extends Builder<T, B>> {
-        abstract ErrorResponse build();
+        private String message;
+        private Integer status;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+
+        protected Builder<T, B> setStatus(Integer status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder<T, B> setMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public abstract ErrorResponse build();
     }
 
     public Integer getStatus() {

@@ -9,23 +9,19 @@ public class ConflictErrorResponse extends ErrorResponse {
     }
 
     public static class Builder extends ErrorResponse.Builder<ConflictErrorResponse, ConflictErrorResponse.Builder> {
-        private Integer status = HttpStatus.CONFLICT.value();
-        private String message;
-
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
-        }
-
         public ConflictErrorResponse build() {
             return new ConflictErrorResponse(
-                    status,
-                    message
+                    this.getStatus(),
+                    this.getMessage()
             );
         }
     }
 
     public static Builder builder() {
-        return new ConflictErrorResponse.Builder();
+        Builder builder = new ConflictErrorResponse.Builder();
+        builder
+            .setStatus(HttpStatus.CONFLICT.value())
+            .setMessage("Conflict Error!");
+        return builder;
     }
 }
