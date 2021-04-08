@@ -71,7 +71,7 @@ public class TopicController {
             PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
 
             return ResponseEntity
-                    .status(HttpStatus.OK)
+                    .status(HttpStatus.CREATED)
                     .body(createdTopic);
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse
