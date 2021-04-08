@@ -1,5 +1,8 @@
 package com.api.application.entities.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class TopicModel {
     protected String id;
     protected String name;

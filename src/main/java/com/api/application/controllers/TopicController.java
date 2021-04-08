@@ -1,11 +1,12 @@
 package com.api.application.controllers;
 
-import com.api.application.entities.requests.PostTopicRequest;
+import com.api.application.entities.requests.TopicRequest;
 import com.api.application.entities.responses.error.ConflictErrorResponse;
 import com.api.application.entities.responses.error.NotFoundErrorResponse;
 import com.api.application.entities.responses.topic.GetTopicResponse;
 import com.api.application.entities.responses.topic.PostTopicResponse;
 import com.api.application.entities.responses.error.InternalErrorResponse;
+import com.api.application.entities.responses.topic.PutTopicResponse;
 import com.api.application.exceptions.AlreadyExistsException;
 import com.api.application.exceptions.NotFoundException;
 import com.api.application.services.TopicService;
@@ -65,7 +66,7 @@ public class TopicController {
     }
 
     @PostMapping()
-    public ResponseEntity addTopic(@RequestBody PostTopicRequest body) {
+    public ResponseEntity addTopic(@RequestBody TopicRequest body) {
         try {
             PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
 
@@ -76,6 +77,28 @@ public class TopicController {
             return ConflictErrorResponse
                     .builder()
                     .setMessage(e.getMessage())
+                    .build()
+                    .toResponse();
+        } catch (Exception e) {
+            return InternalErrorResponse
+                    .builder()
+                    .build()
+                    .toResponse();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateTopic(@RequestBody TopicRequest body, @PathVariable String id) {
+        try {
+            body.setId(id);
+            PutTopicResponse updatedTopic = new PutTopicResponse(topicService.updateTopic(body));
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(updatedTopic);
+        } catch (NotFoundException e) {
+            return NotFoundErrorResponse
+                    .builder()
                     .build()
                     .toResponse();
         } catch (Exception e) {

@@ -1,11 +1,12 @@
 package com.api.application.entities.responses.topic;
 
+import com.api.application.entities.dto.TopicDTO;
 import com.api.application.entities.model.TopicModel;
 
-public class PostTopicResponse {
+public class PostTopicResponse extends TopicModel{
     private String id;
 
-    public PostTopicResponse(TopicModel topic) {
+    public PostTopicResponse(TopicDTO topic) {
         this.id = topic.getId();
     }
 

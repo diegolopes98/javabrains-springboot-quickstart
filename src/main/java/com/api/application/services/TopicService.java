@@ -15,9 +15,7 @@ public class TopicService {
 
     private List<TopicDTO> topics = new ArrayList<>(
             Arrays.asList(
-                    new TopicDTO("spring", "Spring Framework", "Learn Spring Faster!"),
-                    new TopicDTO("adonis", "Adonis Framework", "Learn Adonis Faster!"),
-                    new TopicDTO("react", "React Lib", "Learn React Faster!")
+
             )
     );
 
@@ -52,5 +50,18 @@ public class TopicService {
         topics.add(topicDTO);
 
         return topicDTO;
+    }
+
+    public TopicDTO updateTopic(TopicModel topicData) throws NotFoundException {
+        TopicDTO topicDTO = new TopicDTO(topicData.getId(), topicData.getName(), topicData.getDescription());
+
+        for(int i = 0; topics.size() > 0 && i < topics.size(); i ++) {
+            if (topics.get(i).getId().equals(topicDTO.getId())) {
+                topics.set(i, topicDTO);
+                return topicDTO;
+            }
+        }
+
+        throw new NotFoundException();
     }
 }
