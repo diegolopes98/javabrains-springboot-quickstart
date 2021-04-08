@@ -15,7 +15,9 @@ public class TopicService {
 
     private List<TopicDTO> topics = new ArrayList<>(
             Arrays.asList(
-
+                    new TopicDTO("spring", "Spring Framework", "Learn Spring Faster!"),
+                    new TopicDTO("adonis", "Adonis Framework", "Learn Adonis Faster!"),
+                    new TopicDTO("react", "React Lib", "Learn React Faster!")
             )
     );
 
@@ -63,5 +65,19 @@ public class TopicService {
         }
 
         throw new NotFoundException();
+    }
+
+    public void deleteTopic(String id) throws NotFoundException {
+        TopicDTO topicToDelete = topics
+                .stream()
+                .filter(topic -> topic.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        if (topicToDelete == null) {
+            throw new NotFoundException();
+        }
+
+        topics.remove(topicToDelete);
     }
 }

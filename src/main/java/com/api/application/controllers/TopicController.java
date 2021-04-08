@@ -108,4 +108,26 @@ public class TopicController {
                     .toResponse();
         }
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTopic(@PathVariable String id) {
+        try {
+            topicService.deleteTopic(id);
+
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(null);
+        } catch (NotFoundException e) {
+            return NotFoundErrorResponse
+                    .builder()
+                    .build()
+                    .toResponse();
+        } catch (Exception e) {
+            return InternalErrorResponse
+                    .builder()
+                    .build()
+                    .toResponse();
+        }
+    }
 }
