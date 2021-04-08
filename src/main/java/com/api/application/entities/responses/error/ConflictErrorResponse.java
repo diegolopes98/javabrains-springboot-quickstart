@@ -3,22 +3,29 @@ package com.api.application.entities.responses.error;
 import org.springframework.http.HttpStatus;
 
 public class ConflictErrorResponse extends ErrorResponse {
+
+    private ConflictErrorResponse(Integer status, String message) {
+        super(status, message);
+    }
+
     public static class Builder extends ErrorResponse.Builder<ConflictErrorResponse, ConflictErrorResponse.Builder> {
-        @Override
-        protected void setThisObject() {
-            ConflictErrorResponse conflictErrorResponse = new ConflictErrorResponse();
-            conflictErrorResponse
-                    .setStatus(HttpStatus.CONFLICT.value())
-                    .setMessage("Conflict Error!");
-            thisObject = conflictErrorResponse;
+        private Integer status = HttpStatus.CONFLICT.value();
+        private String message;
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
         }
 
-        @Override
-        protected Builder getThisBuilder() {
-            return this;
+        public ConflictErrorResponse build() {
+            return new ConflictErrorResponse(
+                    status,
+                    message
+            );
         }
     }
 
-    private ConflictErrorResponse() {
+    public static Builder builder() {
+        return new ConflictErrorResponse.Builder();
     }
 }

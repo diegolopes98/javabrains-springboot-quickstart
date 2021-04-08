@@ -36,7 +36,8 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(allTopics);
         } catch (Exception e) {
-            return new InternalErrorResponse.Builder()
+            return InternalErrorResponse
+                    .builder()
                     .build()
                     .toResponse();
         }
@@ -51,11 +52,13 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(topic);
         } catch (NotFoundException e) {
-            return new NotFoundErrorResponse.Builder()
+            return NotFoundErrorResponse
+                    .builder()
                     .build()
                     .toResponse();
         } catch (Exception e) {
-            return new InternalErrorResponse.Builder()
+            return InternalErrorResponse
+                    .builder()
                     .build()
                     .toResponse();
         }
@@ -70,12 +73,14 @@ public class TopicController {
                     .status(HttpStatus.OK)
                     .body(createdTopic);
         } catch (AlreadyExistsException e) {
-            return new ConflictErrorResponse.Builder()
+            return ConflictErrorResponse
+                    .builder()
                     .setMessage(e.getMessage())
                     .build()
                     .toResponse();
         } catch (Exception e) {
-            return new InternalErrorResponse.Builder()
+            return InternalErrorResponse
+                    .builder()
                     .build()
                     .toResponse();
         }
