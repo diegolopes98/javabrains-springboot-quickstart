@@ -1,6 +1,7 @@
 package com.api.application.entity.model;
 
-public abstract class TopicModel {
+public class TopicModel {
+
     private String id;
     private String name;
     private String description;

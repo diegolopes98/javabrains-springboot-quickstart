@@ -2,8 +2,10 @@ package com.api.application.service;
 
 import com.api.application.entity.dto.TopicDTO;
 import com.api.application.entity.model.TopicModel;
+import com.api.application.entity.repository.TopicRepository;
 import com.api.application.exception.AlreadyExistsException;
 import com.api.application.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Service
 public class TopicService {
+
+    @Autowired
+    TopicRepository topicRepository;
 
     private List<TopicDTO> topics = new ArrayList<>(
             Arrays.asList(
@@ -22,7 +27,13 @@ public class TopicService {
     );
 
     public List<TopicDTO> getAllTopics() {
-        return topics;
+        List<TopicDTO> allTopics = new ArrayList<TopicDTO>();
+
+        topicRepository
+                .findAll()
+                .forEach(dTopic -> allTopics.add(new TopicDTO(dTopic)));
+
+        return allTopics;
     }
 
     public TopicDTO getTopic(String id) throws NotFoundException {

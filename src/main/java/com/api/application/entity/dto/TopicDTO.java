@@ -12,6 +12,12 @@ public class TopicDTO extends TopicModel implements ResponseInterface {
     public TopicDTO() {
     }
 
+    public TopicDTO(TopicModel topicModel) {
+        super.setId(topicModel.getId());
+        super.setName(topicModel.getName());
+        super.setDescription(topicModel.getDescription());
+    }
+
     public TopicDTO(String id, String name, String description) {
         super.setId(id);
         super.setName(name);
