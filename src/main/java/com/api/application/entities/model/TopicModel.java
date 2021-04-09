@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class TopicModel {
-    protected String id;
-    protected String name;
-    protected String description;
+    private String id;
+    private String name;
+    private String description;
 
     public String getId() {
         return id;

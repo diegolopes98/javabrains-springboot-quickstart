@@ -1,12 +1,9 @@
 package com.api.application.controllers;
 
-import com.api.application.entities.requests.TopicRequest;
+import com.api.application.entities.dto.TopicDTO;
 import com.api.application.entities.responses.error.ConflictErrorResponse;
-import com.api.application.entities.responses.error.NotFoundErrorResponse;
-import com.api.application.entities.responses.topic.GetTopicResponse;
-import com.api.application.entities.responses.topic.PostTopicResponse;
 import com.api.application.entities.responses.error.InternalErrorResponse;
-import com.api.application.entities.responses.topic.PutTopicResponse;
+import com.api.application.entities.responses.error.NotFoundErrorResponse;
 import com.api.application.exceptions.AlreadyExistsException;
 import com.api.application.exceptions.NotFoundException;
 import com.api.application.services.TopicService;
@@ -16,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topics")
@@ -28,10 +24,8 @@ public class TopicController {
     @GetMapping()
     public ResponseEntity getAllTopics() {
         try {
-            List<GetTopicResponse> allTopics = topicService
-                    .getAllTopics()
-                    .stream()
-                    .map(topicDTO -> new GetTopicResponse(topicDTO)).collect(Collectors.toList());
+            List<TopicDTO> allTopics = topicService
+                    .getAllTopics();
 
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -47,11 +41,9 @@ public class TopicController {
     @GetMapping("/{id}")
     public ResponseEntity getTopic(@PathVariable String id) {
         try {
-            GetTopicResponse topic = new GetTopicResponse(topicService.getTopic(id));
-
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(topic);
+            return topicService
+                    .getTopic(id)
+                    .toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
                     .builder()
@@ -66,13 +58,11 @@ public class TopicController {
     }
 
     @PostMapping()
-    public ResponseEntity addTopic(@RequestBody TopicRequest body) {
+    public ResponseEntity addTopic(@RequestBody TopicDTO body) {
         try {
-            PostTopicResponse createdTopic = new PostTopicResponse(topicService.addTopic(body));
-
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(createdTopic);
+            return topicService
+                    .addTopic(body)
+                    .toResponse();
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse
                     .builder()
@@ -88,14 +78,12 @@ public class TopicController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateTopic(@RequestBody TopicRequest body, @PathVariable String id) {
+    public ResponseEntity updateTopic(@RequestBody TopicDTO body, @PathVariable String id) {
         try {
             body.setId(id);
-            PutTopicResponse updatedTopic = new PutTopicResponse(topicService.updateTopic(body));
-
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(updatedTopic);
+            return topicService
+                    .updateTopic(body)
+                    .toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
                     .builder()
