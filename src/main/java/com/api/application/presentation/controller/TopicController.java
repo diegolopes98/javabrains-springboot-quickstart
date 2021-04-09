@@ -1,31 +1,35 @@
-package com.api.application.controller;
+package com.api.application.presentation.controller;
 
-import com.api.application.entity.dto.TopicDTO;
-import com.api.application.entity.response.error.ConflictErrorResponse;
-import com.api.application.entity.response.error.InternalErrorResponse;
-import com.api.application.entity.response.error.NotFoundErrorResponse;
-import com.api.application.exception.AlreadyExistsException;
-import com.api.application.exception.NotFoundException;
-import com.api.application.service.TopicService;
+import com.api.application.presentation.exception.AlreadyExistsException;
+import com.api.application.presentation.exception.NotFoundException;
+import com.api.application.presentation.response.error.ConflictErrorResponse;
+import com.api.application.presentation.response.error.InternalErrorResponse;
+import com.api.application.presentation.response.error.NotFoundErrorResponse;
+import com.api.application.presentation.response.topic.TopicResponse;
+import com.api.application.usecase.TopicUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/topics")
 public class TopicController {
 
     @Autowired
-    private TopicService topicService;
+    private TopicUseCase topicUseCase;
 
     @GetMapping()
     public ResponseEntity getAllTopics() {
         try {
-            List<TopicDTO> allTopics = topicService
-                    .getAllTopics();
+            List<TopicResponse> allTopics = topicUseCase
+                    .getAllTopics()
+                    .stream()
+                    .map(topicModel -> new TopicResponse(topicModel))
+                    .collect(Collectors.toList());
 
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -41,9 +45,8 @@ public class TopicController {
     @GetMapping("/{id}")
     public ResponseEntity getTopic(@PathVariable String id) {
         try {
-            return topicService
-                    .getTopic(id)
-                    .toResponse();
+            TopicResponse topicResponse = new TopicResponse(topicUseCase.getTopic(id));
+            return topicResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
                     .builder()
@@ -58,11 +61,10 @@ public class TopicController {
     }
 
     @PostMapping()
-    public ResponseEntity addTopic(@RequestBody TopicDTO body) {
+    public ResponseEntity addTopic(@RequestBody TopicResponse body) {
         try {
-            return topicService
-                    .addTopic(body)
-                    .toResponse();
+            TopicResponse topicResponse = new TopicResponse(topicUseCase.addTopic(body));
+            return topicResponse.toResponse();
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse
                     .builder()
@@ -78,12 +80,11 @@ public class TopicController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateTopic(@RequestBody TopicDTO body, @PathVariable String id) {
+    public ResponseEntity updateTopic(@RequestBody TopicResponse body, @PathVariable String id) {
         try {
             body.setId(id);
-            return topicService
-                    .updateTopic(body)
-                    .toResponse();
+            TopicResponse topicResponse = new TopicResponse(topicUseCase.updateTopic(body));
+            return topicResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
                     .builder()
@@ -101,7 +102,7 @@ public class TopicController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTopic(@PathVariable String id) {
         try {
-            topicService.deleteTopic(id);
+            topicUseCase.deleteTopic(id);
 
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

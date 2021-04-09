@@ -1,4 +1,4 @@
-package com.api.application.entity.response.error;
+package com.api.application.presentation.response.error;
 
 import org.springframework.http.HttpStatus;
 

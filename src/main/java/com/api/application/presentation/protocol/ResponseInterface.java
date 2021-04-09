@@ -1,4 +1,4 @@
-package com.api.application.entity.interfaces.response;
+package com.api.application.presentation.protocol;
 
 import org.springframework.http.ResponseEntity;
 
