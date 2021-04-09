@@ -1,12 +1,12 @@
-package com.api.application.controllers;
+package com.api.application.controller;
 
-import com.api.application.entities.dto.TopicDTO;
-import com.api.application.entities.responses.error.ConflictErrorResponse;
-import com.api.application.entities.responses.error.InternalErrorResponse;
-import com.api.application.entities.responses.error.NotFoundErrorResponse;
-import com.api.application.exceptions.AlreadyExistsException;
-import com.api.application.exceptions.NotFoundException;
-import com.api.application.services.TopicService;
+import com.api.application.entity.dto.TopicDTO;
+import com.api.application.entity.response.error.ConflictErrorResponse;
+import com.api.application.entity.response.error.InternalErrorResponse;
+import com.api.application.entity.response.error.NotFoundErrorResponse;
+import com.api.application.exception.AlreadyExistsException;
+import com.api.application.exception.NotFoundException;
+import com.api.application.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

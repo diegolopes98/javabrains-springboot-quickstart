@@ -1,4 +1,4 @@
-package com.api.application.exceptions;
+package com.api.application.exception;
 
 public class AlreadyExistsException extends Exception {
     public AlreadyExistsException(String message) {

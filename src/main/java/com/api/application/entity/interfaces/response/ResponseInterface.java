@@ -1,4 +1,4 @@
-package com.api.application.entities.interfaces.response;
+package com.api.application.entity.interfaces.response;
 
 import org.springframework.http.ResponseEntity;
 

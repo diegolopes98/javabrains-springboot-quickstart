@@ -1,7 +1,7 @@
-package com.api.application.entities.dto;
+package com.api.application.entity.dto;
 
-import com.api.application.entities.interfaces.response.ResponseInterface;
-import com.api.application.entities.model.TopicModel;
+import com.api.application.entity.interfaces.response.ResponseInterface;
+import com.api.application.entity.model.TopicModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

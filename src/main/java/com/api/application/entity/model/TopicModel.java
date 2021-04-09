@@ -1,4 +1,4 @@
-package com.api.application.entities.model;
+package com.api.application.entity.model;
 
 public abstract class TopicModel {
     private String id;

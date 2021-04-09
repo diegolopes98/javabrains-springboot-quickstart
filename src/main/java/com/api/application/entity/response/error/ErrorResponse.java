@@ -1,6 +1,6 @@
-package com.api.application.entities.responses.error;
+package com.api.application.entity.response.error;
 
-import com.api.application.entities.interfaces.response.ResponseInterface;
+import com.api.application.entity.interfaces.response.ResponseInterface;
 import org.springframework.http.ResponseEntity;
 
 abstract public class ErrorResponse implements ResponseInterface {

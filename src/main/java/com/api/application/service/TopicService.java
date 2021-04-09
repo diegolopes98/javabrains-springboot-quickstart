@@ -1,9 +1,9 @@
-package com.api.application.services;
+package com.api.application.service;
 
-import com.api.application.entities.dto.TopicDTO;
-import com.api.application.entities.model.TopicModel;
-import com.api.application.exceptions.AlreadyExistsException;
-import com.api.application.exceptions.NotFoundException;
+import com.api.application.entity.dto.TopicDTO;
+import com.api.application.entity.model.TopicModel;
+import com.api.application.exception.AlreadyExistsException;
+import com.api.application.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
