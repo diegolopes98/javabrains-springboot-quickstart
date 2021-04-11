@@ -7,6 +7,7 @@ import com.api.application.presentation.response.error.ConflictErrorResponse;
 import com.api.application.presentation.response.error.InternalErrorResponse;
 import com.api.application.presentation.response.error.NotFoundErrorResponse;
 import com.api.application.presentation.response.topic.TopicResponse;
+import com.api.application.usecase.AddTopicUseCase;
 import com.api.application.usecase.GetAllTopicsUseCase;
 import com.api.application.usecase.GetTopicUseCase;
 import com.api.application.usecase.TopicUseCase;
@@ -27,6 +28,9 @@ public class TopicController {
 
     @Autowired
     private GetTopicUseCase getTopicUseCase;
+
+    @Autowired
+    private AddTopicUseCase addTopicUseCase;
 
     @Autowired
     private TopicUseCase topicUseCase;
@@ -72,7 +76,7 @@ public class TopicController {
     @PostMapping()
     public ResponseEntity addTopic(@RequestBody TopicResponse body) {
         try {
-            TopicResponse topicResponse = new TopicResponse(topicUseCase.addTopic(body));
+            TopicResponse topicResponse = new TopicResponse(addTopicUseCase.addTopic(body));
             return topicResponse.toResponse();
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse

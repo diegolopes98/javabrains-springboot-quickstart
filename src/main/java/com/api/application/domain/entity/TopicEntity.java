@@ -1,5 +1,6 @@
 package com.api.application.domain.entity;
 
+import com.api.application.domain.model.TopicModel;
 import com.api.application.domain.protocol.TopicInterface;
 
 import javax.persistence.Entity;
@@ -12,6 +13,12 @@ public class TopicEntity implements TopicInterface{
     public static final String TABLE_NAME = "TOPICS";
 
     public TopicEntity() {
+    }
+
+    public TopicEntity(TopicModel topicModel) {
+        this.id = topicModel.getId();
+        this.name = topicModel.getName();
+        this.description = topicModel.getDescription();
     }
 
     public TopicEntity(String id, String name, String description) {
