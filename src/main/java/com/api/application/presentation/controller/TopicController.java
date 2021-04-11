@@ -1,11 +1,13 @@
 package com.api.application.presentation.controller;
 
+import com.api.application.domain.protocol.GetAllTopicsInterface;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import com.api.application.presentation.exception.NotFoundException;
 import com.api.application.presentation.response.error.ConflictErrorResponse;
 import com.api.application.presentation.response.error.InternalErrorResponse;
 import com.api.application.presentation.response.error.NotFoundErrorResponse;
 import com.api.application.presentation.response.topic.TopicResponse;
+import com.api.application.usecase.GetAllTopicsUseCase;
 import com.api.application.usecase.TopicUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +22,15 @@ import java.util.stream.Collectors;
 public class TopicController {
 
     @Autowired
+    private GetAllTopicsUseCase getAllTopicsUseCase;
+
+    @Autowired
     private TopicUseCase topicUseCase;
 
     @GetMapping()
     public ResponseEntity getAllTopics() {
         try {
-            List<TopicResponse> allTopics = topicUseCase
+            List<TopicResponse> allTopics = getAllTopicsUseCase
                     .getAllTopics()
                     .stream()
                     .map(topicModel -> new TopicResponse(topicModel))

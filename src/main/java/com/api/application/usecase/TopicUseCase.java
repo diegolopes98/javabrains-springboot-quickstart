@@ -25,25 +25,6 @@ public class TopicUseCase {
             )
     );
 
-    public List<TopicModel> getAllTopics() {
-        List<TopicModel> allTopics = new ArrayList<TopicModel>();
-
-        topicRepository
-                .findAll()
-                .forEach(
-                        topicEntity -> allTopics
-                                .add(
-                                        new TopicModel(
-                                                topicEntity.getId(),
-                                                topicEntity.getName(),
-                                                topicEntity.getDescription()
-                                        )
-                                )
-                );
-
-        return allTopics;
-    }
-
     public TopicModel getTopic(String id) throws NotFoundException {
         TopicModel topicResponse = topics.stream().filter(topic -> topic.getId().equals(id)).findFirst().orElse(null);
 
