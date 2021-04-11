@@ -1,6 +1,5 @@
 package com.api.application.presentation.controller;
 
-import com.api.application.domain.protocol.GetAllTopicsInterface;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import com.api.application.presentation.exception.NotFoundException;
 import com.api.application.presentation.response.error.ConflictErrorResponse;
@@ -33,7 +32,7 @@ public class TopicController {
     private UpdateTopicUseCase updateTopicUseCase;
 
     @Autowired
-    private TopicUseCase topicUseCase;
+    private DeleteTopicUseCase deleteTopicUseCase;
 
     @GetMapping()
     public ResponseEntity getAllTopics() {
@@ -115,7 +114,7 @@ public class TopicController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTopic(@PathVariable String id) {
         try {
-            topicUseCase.deleteTopic(id);
+            deleteTopicUseCase.deleteTopic(id);
 
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
