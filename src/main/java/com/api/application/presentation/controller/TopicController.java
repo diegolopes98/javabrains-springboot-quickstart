@@ -8,6 +8,7 @@ import com.api.application.presentation.response.error.InternalErrorResponse;
 import com.api.application.presentation.response.error.NotFoundErrorResponse;
 import com.api.application.presentation.response.topic.TopicResponse;
 import com.api.application.usecase.GetAllTopicsUseCase;
+import com.api.application.usecase.GetTopicUseCase;
 import com.api.application.usecase.TopicUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class TopicController {
 
     @Autowired
     private GetAllTopicsUseCase getAllTopicsUseCase;
+
+    @Autowired
+    private GetTopicUseCase getTopicUseCase;
 
     @Autowired
     private TopicUseCase topicUseCase;
@@ -50,7 +54,7 @@ public class TopicController {
     @GetMapping("/{id}")
     public ResponseEntity getTopic(@PathVariable String id) {
         try {
-            TopicResponse topicResponse = new TopicResponse(topicUseCase.getTopic(id));
+            TopicResponse topicResponse = new TopicResponse(getTopicUseCase.getTopic(id));
             return topicResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
