@@ -38,7 +38,7 @@ public class TopicController {
     public ResponseEntity getAllTopics() {
         try {
             List<TopicResponse> allTopics = getAllTopicsUseCase
-                    .getAllTopics()
+                    .getAll()
                     .stream()
                     .map(topicModel -> new TopicResponse(topicModel))
                     .collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class TopicController {
     @GetMapping("/{id}")
     public ResponseEntity getTopic(@PathVariable String id) {
         try {
-            TopicResponse topicResponse = new TopicResponse(getTopicUseCase.getTopic(id));
+            TopicResponse topicResponse = new TopicResponse(getTopicUseCase.getById(id));
             return topicResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
@@ -75,7 +75,7 @@ public class TopicController {
     @PostMapping()
     public ResponseEntity addTopic(@RequestBody TopicResponse body) {
         try {
-            TopicResponse topicResponse = new TopicResponse(addTopicUseCase.addTopic(body));
+            TopicResponse topicResponse = new TopicResponse(addTopicUseCase.add(body));
             return topicResponse.toResponse();
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse
@@ -95,7 +95,7 @@ public class TopicController {
     public ResponseEntity updateTopic(@RequestBody TopicResponse body, @PathVariable String id) {
         try {
             body.setId(id);
-            TopicResponse topicResponse = new TopicResponse(updateTopicUseCase.updateTopic(body));
+            TopicResponse topicResponse = new TopicResponse(updateTopicUseCase.update(body));
             return topicResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
@@ -114,7 +114,7 @@ public class TopicController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTopic(@PathVariable String id) {
         try {
-            deleteTopicUseCase.deleteTopic(id);
+            deleteTopicUseCase.deleteById(id);
 
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)

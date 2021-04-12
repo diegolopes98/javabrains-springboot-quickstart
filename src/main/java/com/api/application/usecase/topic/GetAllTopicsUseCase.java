@@ -1,7 +1,7 @@
 package com.api.application.usecase.topic;
 
 import com.api.application.domain.model.TopicModel;
-import com.api.application.domain.protocol.topic.GetAllTopicsInterface;
+import com.api.application.domain.protocol.GetAllEntitiesInterface;
 import com.api.application.infra.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GetAllTopicsUseCase implements GetAllTopicsInterface {
+public class GetAllTopicsUseCase implements GetAllEntitiesInterface<TopicModel> {
 
     @Autowired
     TopicRepository topicRepository;
 
-    public List<TopicModel> getAllTopics() {
+    public List<TopicModel> getAll() {
         List<TopicModel> allTopics = new ArrayList<TopicModel>();
 
         topicRepository

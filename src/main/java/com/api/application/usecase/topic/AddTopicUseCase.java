@@ -2,20 +2,20 @@ package com.api.application.usecase.topic;
 
 import com.api.application.domain.entity.TopicEntity;
 import com.api.application.domain.model.TopicModel;
-import com.api.application.domain.protocol.topic.AddTopicInterface;
+import com.api.application.domain.protocol.AddEntityInterface;
 import com.api.application.infra.repository.TopicRepository;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddTopicUseCase implements AddTopicInterface {
+public class AddTopicUseCase implements AddEntityInterface<TopicModel> {
 
     @Autowired
     TopicRepository topicRepository;
 
     @Override
-    public TopicModel addTopic(TopicModel topic) throws AlreadyExistsException {
+    public TopicModel add(TopicModel topic) throws AlreadyExistsException {
         if (topicRepository.existsById(topic.getId())) {
             String message = String.format("id [%s] already exists", topic.getId());
             throw new AlreadyExistsException(message);
