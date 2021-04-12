@@ -2,7 +2,7 @@ package com.api.application.usecase.course;
 
 import com.api.application.domain.entity.CourseEntity;
 import com.api.application.domain.model.CourseModel;
-import com.api.application.domain.protocol.AddEntityInterface;
+import com.api.application.domain.protocol.entity.AddEntityInterface;
 import com.api.application.infra.repository.CourseRepository;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;

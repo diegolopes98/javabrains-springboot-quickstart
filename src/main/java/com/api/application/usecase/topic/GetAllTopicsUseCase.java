@@ -1,7 +1,7 @@
 package com.api.application.usecase.topic;
 
 import com.api.application.domain.model.TopicModel;
-import com.api.application.domain.protocol.GetAllEntitiesInterface;
+import com.api.application.domain.protocol.entity.GetAllEntitiesInterface;
 import com.api.application.infra.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

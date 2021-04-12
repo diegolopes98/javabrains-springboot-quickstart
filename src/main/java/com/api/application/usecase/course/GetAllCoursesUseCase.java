@@ -1,7 +1,7 @@
 package com.api.application.usecase.course;
 
 import com.api.application.domain.model.CourseModel;
-import com.api.application.domain.protocol.GetAllEntitiesInterface;
+import com.api.application.domain.protocol.entity.GetAllEntitiesInterface;
 import com.api.application.infra.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

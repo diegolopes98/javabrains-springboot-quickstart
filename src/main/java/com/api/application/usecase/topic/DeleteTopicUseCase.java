@@ -1,6 +1,6 @@
 package com.api.application.usecase.topic;
 
-import com.api.application.domain.protocol.DeleteEntityByIdInterface;
+import com.api.application.domain.protocol.entity.DeleteEntityByIdInterface;
 import com.api.application.infra.repository.TopicRepository;
 import com.api.application.presentation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

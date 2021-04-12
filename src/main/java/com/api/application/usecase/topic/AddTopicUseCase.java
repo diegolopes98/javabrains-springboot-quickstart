@@ -2,7 +2,7 @@ package com.api.application.usecase.topic;
 
 import com.api.application.domain.entity.TopicEntity;
 import com.api.application.domain.model.TopicModel;
-import com.api.application.domain.protocol.AddEntityInterface;
+import com.api.application.domain.protocol.entity.AddEntityInterface;
 import com.api.application.infra.repository.TopicRepository;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
