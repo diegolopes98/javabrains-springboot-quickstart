@@ -15,7 +15,7 @@ public class AddCourseUseCase implements AddEntityInterface<CourseModel> {
     CourseRepository courseRepository;
 
     @Override
-    public CourseModel add(CourseModel course) throws AlreadyExistsException {
+    public <PID> CourseModel add(CourseModel course, PID parentId) throws AlreadyExistsException {
         if (courseRepository.existsById(course.getId())) {
             String message = String.format("id [%s] already exists", course.getId());
             throw new AlreadyExistsException(message);
@@ -29,5 +29,10 @@ public class AddCourseUseCase implements AddEntityInterface<CourseModel> {
                 newCourse.getName(),
                 newCourse.getDescription()
         );
+    }
+
+    @Override
+    public CourseModel add(CourseModel entity) throws AlreadyExistsException {
+        throw new UnsupportedOperationException();
     }
 }

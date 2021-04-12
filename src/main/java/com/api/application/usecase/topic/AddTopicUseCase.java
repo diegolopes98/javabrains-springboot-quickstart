@@ -30,4 +30,9 @@ public class AddTopicUseCase implements AddEntityInterface<TopicModel> {
                 newTopic.getDescription()
         );
     }
+
+    @Override
+    public <PID> TopicModel add(TopicModel entity, PID parentId) throws AlreadyExistsException {
+        throw new UnsupportedOperationException();
+    }
 }
