@@ -7,14 +7,16 @@ public class CourseModel implements CourseInterface {
     private String id;
     private String name;
     private String description;
+    private TopicModel topic;
 
     public CourseModel() {
     }
 
-    public CourseModel(String id, String name, String description) {
+    public CourseModel(String id, String name, String description, TopicModel topic) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.topic = topic;
     }
 
     public String getId() {
@@ -39,5 +41,13 @@ public class CourseModel implements CourseInterface {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public TopicModel getTopic() {
+        return topic;
+    }
+
+    public void setTopic(TopicModel topic) {
+        this.topic = topic;
     }
 }

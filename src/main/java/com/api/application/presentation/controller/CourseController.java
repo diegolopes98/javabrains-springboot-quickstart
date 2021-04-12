@@ -87,6 +87,11 @@ public class CourseController {
                     .setMessage(e.getMessage())
                     .build()
                     .toResponse();
+        } catch (NotFoundException e) {
+            return NotFoundErrorResponse
+                    .builder()
+                    .build()
+                    .toResponse();
         } catch (Exception e) {
             return InternalErrorResponse
                     .builder()

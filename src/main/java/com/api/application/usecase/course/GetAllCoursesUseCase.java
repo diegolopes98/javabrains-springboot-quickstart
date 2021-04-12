@@ -1,6 +1,7 @@
 package com.api.application.usecase.course;
 
 import com.api.application.domain.model.CourseModel;
+import com.api.application.domain.model.TopicModel;
 import com.api.application.domain.protocol.entity.GetAllEntitiesInterface;
 import com.api.application.infra.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,17 @@ public class GetAllCoursesUseCase implements GetAllEntitiesInterface<CourseModel
         courseRepository
                 .findAll()
                 .forEach(
-                        topicEntity -> allCourses
+                        courseEntity -> allCourses
                                 .add(
                                         new CourseModel(
-                                                topicEntity.getId(),
-                                                topicEntity.getName(),
-                                                topicEntity.getDescription()
+                                                courseEntity.getId(),
+                                                courseEntity.getName(),
+                                                courseEntity.getDescription(),
+                                                new TopicModel(
+                                                        courseEntity.getTopic().getId(),
+                                                        courseEntity.getTopic().getName(),
+                                                        courseEntity.getTopic().getDescription()
+                                                )
                                         )
                                 )
                 );

@@ -7,6 +7,7 @@ import com.api.application.domain.protocol.topic.TopicInterface;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,18 +22,22 @@ public class CourseEntity implements CourseInterface {
         this.id = courseModel.getId();
         this.name = courseModel.getName();
         this.description = courseModel.getDescription();
+        this.topic = new TopicEntity(courseModel.getTopic());
     }
 
-    public CourseEntity(String id, String name, String description) {
+    public CourseEntity(String id, String name, String description, TopicEntity topic) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.topic = topic;
     }
 
     @Id
     private String id;
     private String name;
     private String description;
+    @ManyToOne
+    private TopicEntity topic;
 
     public String getId() {
         return id;
@@ -56,5 +61,13 @@ public class CourseEntity implements CourseInterface {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public TopicEntity getTopic() {
+        return topic;
+    }
+
+    public void setTopic(TopicEntity topic) {
+        this.topic = topic;
     }
 }
