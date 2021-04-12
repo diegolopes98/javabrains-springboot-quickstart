@@ -2,6 +2,7 @@ package com.api.application.domain.entity;
 
 import com.api.application.domain.model.CourseModel;
 import com.api.application.domain.model.TopicModel;
+import com.api.application.domain.protocol.course.CourseInterface;
 import com.api.application.domain.protocol.topic.TopicInterface;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = CourseEntity.TABLE_NAME)
-public class CourseEntity implements TopicInterface{
+public class CourseEntity implements CourseInterface {
     public static final String TABLE_NAME = "COURSES";
 
     public CourseEntity() {
