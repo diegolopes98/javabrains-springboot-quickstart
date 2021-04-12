@@ -24,4 +24,15 @@ public class UpdateCourseUseCase implements UpdateEntityInterface<CourseModel> {
 
         return courseModel;
     }
+
+    @Override
+    public <PID> CourseModel update(CourseModel courseModel, PID parentId) throws NotFoundException {
+        if(!courseRepository.existsById(courseModel.getId())) {
+            throw new NotFoundException();
+        }
+
+        courseRepository.save(new CourseEntity(courseModel));
+
+        return courseModel;
+    }
 }
