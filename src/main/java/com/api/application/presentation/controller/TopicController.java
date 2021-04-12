@@ -1,5 +1,6 @@
 package com.api.application.presentation.controller;
 
+import com.api.application.domain.model.TopicModel;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import com.api.application.presentation.exception.NotFoundException;
 import com.api.application.presentation.response.error.ConflictErrorResponse;
@@ -35,7 +36,7 @@ public class TopicController {
     private DeleteTopicUseCase deleteTopicUseCase;
 
     @GetMapping()
-    public ResponseEntity getAllTopics() {
+    public ResponseEntity getAll() {
         try {
             List<TopicResponse> allTopics = getAllTopicsUseCase
                     .getAll()
@@ -55,7 +56,7 @@ public class TopicController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getTopic(@PathVariable String id) {
+    public ResponseEntity get(@PathVariable String id) {
         try {
             TopicResponse topicResponse = new TopicResponse(getTopicUseCase.getById(id));
             return topicResponse.toResponse();
@@ -73,7 +74,7 @@ public class TopicController {
     }
 
     @PostMapping()
-    public ResponseEntity addTopic(@RequestBody TopicResponse body) {
+    public ResponseEntity add(@RequestBody TopicModel body) {
         try {
             TopicResponse topicResponse = new TopicResponse(addTopicUseCase.add(body));
             return topicResponse.toResponse();
@@ -92,7 +93,7 @@ public class TopicController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateTopic(@RequestBody TopicResponse body, @PathVariable String id) {
+    public ResponseEntity put(@RequestBody TopicModel body, @PathVariable String id) {
         try {
             body.setId(id);
             TopicResponse topicResponse = new TopicResponse(updateTopicUseCase.update(body));
@@ -112,7 +113,7 @@ public class TopicController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteTopic(@PathVariable String id) {
+    public ResponseEntity delete(@PathVariable String id) {
         try {
             deleteTopicUseCase.deleteById(id);
 
