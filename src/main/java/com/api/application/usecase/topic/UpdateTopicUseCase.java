@@ -24,4 +24,9 @@ public class UpdateTopicUseCase implements UpdateEntityInterface<TopicModel> {
 
         return topicModel;
     }
+
+    @Override
+    public <PID> TopicModel update(TopicModel model, PID parentId) throws NotFoundException {
+        throw new UnsupportedOperationException();
+    }
 }

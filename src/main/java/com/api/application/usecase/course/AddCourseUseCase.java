@@ -32,7 +32,7 @@ public class AddCourseUseCase implements AddEntityInterface<CourseModel> {
     }
 
     @Override
-    public CourseModel add(CourseModel entity) throws AlreadyExistsException {
+    public CourseModel add(CourseModel model) throws AlreadyExistsException {
         throw new UnsupportedOperationException();
     }
 }

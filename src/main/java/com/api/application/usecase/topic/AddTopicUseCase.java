@@ -32,7 +32,7 @@ public class AddTopicUseCase implements AddEntityInterface<TopicModel> {
     }
 
     @Override
-    public <PID> TopicModel add(TopicModel entity, PID parentId) throws AlreadyExistsException {
+    public <PID> TopicModel add(TopicModel model, PID parentId) throws AlreadyExistsException {
         throw new UnsupportedOperationException();
     }
 }
