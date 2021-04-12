@@ -1,6 +1,6 @@
 package com.api.application.domain.model;
 
-import com.api.application.domain.protocol.TopicInterface;
+import com.api.application.domain.protocol.topic.TopicInterface;
 
 public class TopicModel implements TopicInterface {
 

@@ -1,4 +1,4 @@
-package com.api.application.domain.protocol;
+package com.api.application.domain.protocol.topic;
 
 import com.api.application.domain.model.TopicModel;
 

@@ -1,7 +1,7 @@
 package com.api.application.domain.entity;
 
 import com.api.application.domain.model.TopicModel;
-import com.api.application.domain.protocol.TopicInterface;
+import com.api.application.domain.protocol.topic.TopicInterface;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

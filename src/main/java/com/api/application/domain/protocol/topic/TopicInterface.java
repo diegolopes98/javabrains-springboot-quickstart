@@ -1,4 +1,4 @@
-package com.api.application.domain.protocol;
+package com.api.application.domain.protocol.topic;
 
 public interface TopicInterface {
     void setId(String id);
