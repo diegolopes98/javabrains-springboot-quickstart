@@ -1,4 +1,4 @@
-package com.api.application.usecase;
+package com.api.application.usecase.topic;
 
 import com.api.application.domain.entity.TopicEntity;
 import com.api.application.domain.model.TopicModel;

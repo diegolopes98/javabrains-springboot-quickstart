@@ -6,7 +6,7 @@ import com.api.application.presentation.response.error.ConflictErrorResponse;
 import com.api.application.presentation.response.error.InternalErrorResponse;
 import com.api.application.presentation.response.error.NotFoundErrorResponse;
 import com.api.application.presentation.response.topic.TopicResponse;
-import com.api.application.usecase.*;
+import com.api.application.usecase.topic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
