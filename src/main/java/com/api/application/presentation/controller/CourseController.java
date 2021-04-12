@@ -76,7 +76,10 @@ public class CourseController {
     @PostMapping()
     public ResponseEntity post(@RequestBody CourseModel body, @PathVariable String topicId) {
         try {
-            CourseResponse courseResponse = new CourseResponse(addCourseUseCase.add(body));
+            CourseResponse courseResponse = new CourseResponse(
+                    addCourseUseCase
+                            .add(body, topicId)
+            );
             return courseResponse.toResponse();
         } catch (AlreadyExistsException e) {
             return ConflictErrorResponse
@@ -96,7 +99,10 @@ public class CourseController {
     public ResponseEntity put(@RequestBody CourseModel body, @PathVariable String topicId, @PathVariable String id) {
         try {
             body.setId(id);
-            CourseResponse courseResponse = new CourseResponse(updateCourseUseCase.update(body));
+            CourseResponse courseResponse = new CourseResponse(
+                    updateCourseUseCase
+                            .update(body, topicId)
+            );
             return courseResponse.toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
