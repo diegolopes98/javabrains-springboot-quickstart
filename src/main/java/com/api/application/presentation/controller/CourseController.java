@@ -36,7 +36,7 @@ public class CourseController {
     private DeleteCourseUseCase deleteCourseUseCase;
 
     @GetMapping()
-    public ResponseEntity getAll() {
+    public ResponseEntity getAll(@PathVariable String topicId) {
         try {
             List<CourseResponse> allCourses = getAllCoursesUseCase
                     .getAll()
@@ -56,7 +56,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity get(@PathVariable String id) {
+    public ResponseEntity get(@PathVariable String topicId, @PathVariable String id) {
         try {
             CourseResponse courseResponse = new CourseResponse(getCourseUseCase.getById(id));
             return courseResponse.toResponse();
@@ -74,7 +74,7 @@ public class CourseController {
     }
 
     @PostMapping()
-    public ResponseEntity post(@RequestBody CourseModel body) {
+    public ResponseEntity post(@RequestBody CourseModel body, @PathVariable String topicId) {
         try {
             CourseResponse courseResponse = new CourseResponse(addCourseUseCase.add(body));
             return courseResponse.toResponse();
@@ -93,7 +93,7 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity put(@RequestBody CourseModel body, @PathVariable String id) {
+    public ResponseEntity put(@RequestBody CourseModel body, @PathVariable String topicId, @PathVariable String id) {
         try {
             body.setId(id);
             CourseResponse courseResponse = new CourseResponse(updateCourseUseCase.update(body));
@@ -113,7 +113,7 @@ public class CourseController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable String id) {
+    public ResponseEntity delete(@PathVariable String topicId, @PathVariable String id) {
         try {
             deleteCourseUseCase.deleteById(id);
 
