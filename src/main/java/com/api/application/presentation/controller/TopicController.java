@@ -3,12 +3,14 @@ package com.api.application.presentation.controller;
 import com.api.application.domain.model.TopicModel;
 import com.api.application.presentation.exception.AlreadyExistsException;
 import com.api.application.presentation.exception.NotFoundException;
+import com.api.application.presentation.response.error.BadRequestErrorResponse;
 import com.api.application.presentation.response.error.ConflictErrorResponse;
 import com.api.application.presentation.response.error.InternalErrorResponse;
 import com.api.application.presentation.response.error.NotFoundErrorResponse;
 import com.api.application.presentation.response.topic.TopicResponse;
 import com.api.application.usecase.topic.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -120,6 +122,13 @@ public class TopicController {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .body(null);
+        } catch (DataIntegrityViolationException e) {
+            String message = String.format("Can't delete topic [%s] because it's has associated courses!", id);
+            return BadRequestErrorResponse
+                    .builder()
+                    .setMessage(message)
+                    .build()
+                    .toResponse();
         } catch (NotFoundException e) {
             return NotFoundErrorResponse
                     .builder()
