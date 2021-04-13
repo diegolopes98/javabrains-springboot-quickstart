@@ -16,7 +16,7 @@ public class GetAllCoursesUseCase implements GetAllEntitiesInterface<CourseModel
     @Autowired
     CourseRepository courseRepository;
 
-    public List<CourseModel> getAll() {
+    public <PID> List<CourseModel> getAll(PID parentId) {
         List<CourseModel> allCourses = new ArrayList<CourseModel>();
 
         courseRepository
@@ -38,5 +38,10 @@ public class GetAllCoursesUseCase implements GetAllEntitiesInterface<CourseModel
                 );
 
         return allCourses;
+    }
+
+    @Override
+    public List<CourseModel> getAll() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -33,4 +33,9 @@ public class GetAllTopicsUseCase implements GetAllEntitiesInterface<TopicModel> 
 
         return allTopics;
     }
+
+    @Override
+    public <PID> List<TopicModel> getAll(PID parentId) {
+        throw new UnsupportedOperationException();
+    }
 }
