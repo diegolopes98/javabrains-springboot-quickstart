@@ -39,7 +39,7 @@ public class CourseController {
     public ResponseEntity getAll(@PathVariable String topicId) {
         try {
             List<CourseResponse> allCourses = getAllCoursesUseCase
-                    .getAll()
+                    .getAll(topicId)
                     .stream()
                     .map(course -> new CourseResponse(course))
                     .collect(Collectors.toList());

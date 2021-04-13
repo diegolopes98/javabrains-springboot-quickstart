@@ -1,9 +1,12 @@
 package com.api.application.usecase.course;
 
+import com.api.application.domain.entity.TopicEntity;
 import com.api.application.domain.model.CourseModel;
 import com.api.application.domain.model.TopicModel;
 import com.api.application.domain.protocol.entity.GetAllEntitiesInterface;
 import com.api.application.infra.repository.CourseRepository;
+import com.api.application.infra.repository.TopicRepository;
+import com.api.application.presentation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,20 @@ public class GetAllCoursesUseCase implements GetAllEntitiesInterface<CourseModel
     @Autowired
     CourseRepository courseRepository;
 
-    public <PID> List<CourseModel> getAll(PID parentId) {
+    @Autowired
+    TopicRepository topicRepository;
+
+    public <PID> List<CourseModel> getAll(PID parentId) throws NotFoundException {
         List<CourseModel> allCourses = new ArrayList<CourseModel>();
 
+        TopicEntity parentTopic = topicRepository.findById((String) parentId).orElse(null);
+
+        if(parentTopic == null) {
+            throw new NotFoundException();
+        }
+
         courseRepository
-                .findAll()
+                .findByTopic(parentTopic)
                 .forEach(
                         courseEntity -> allCourses
                                 .add(
