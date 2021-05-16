@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    container_name: jb-mysql-server
+    image: mysql:8.0.24
+    restart: always
+    environment:
+      MYSQL_DATABASE: javabrains
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
