@@ -1,5 +1,7 @@
 package com.api.application.domain.entity;
 
+import com.api.application.domain.model.TopicModel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,9 +13,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class TopicEntityTest {
+
+    final String TEST_ID = "test id";
+    final String TEST_NAME = "test name";
+    final String TEST_DESCRIPTION = "test description";
+
+
+    TopicModel topicMock = mock(TopicModel.class);
+
+    @BeforeEach
+    void setUpMocks() {
+        when(topicMock.getId()).thenReturn(TEST_ID);
+        when(topicMock.getName()).thenReturn(TEST_NAME);
+        when(topicMock.getDescription()).thenReturn(TEST_DESCRIPTION);
+    }
 
     @Test
     public void checkForEntityAnnotations() {
@@ -97,5 +115,39 @@ public class TopicEntityTest {
                 new LinkedList<Class>(),
                 String.class
         );
+    }
+
+    @Test
+    void checkEntityGetters() {
+        TopicEntity topicEntity = new TopicEntity(TEST_ID, TEST_NAME, TEST_DESCRIPTION);
+
+        assertEquals(TEST_ID, topicEntity.getId());
+        assertEquals(TEST_NAME, topicEntity.getName());
+        assertEquals(TEST_DESCRIPTION, topicEntity.getDescription());
+    }
+
+    @Test
+    void checkEntitySetters() {
+        TopicEntity topicEntity = new TopicEntity();
+
+        topicEntity.setId(TEST_ID);
+        topicEntity.setName(TEST_NAME);
+        topicEntity.setDescription(TEST_DESCRIPTION);
+
+        assertEquals(TEST_ID, topicEntity.getId());
+        assertEquals(TEST_NAME, topicEntity.getName());
+        assertEquals(TEST_DESCRIPTION, topicEntity.getDescription());
+
+        topicEntity.setId(null);
+        assertEquals(TEST_ID, topicEntity.getId());
+    }
+
+    @Test
+    void checkEntityInstantiatedByModel() {
+        TopicEntity topicEntity = new TopicEntity(topicMock);
+
+        assertEquals(TEST_ID, topicEntity.getId());
+        assertEquals(TEST_NAME, topicEntity.getName());
+        assertEquals(TEST_DESCRIPTION, topicEntity.getDescription());
     }
 }
